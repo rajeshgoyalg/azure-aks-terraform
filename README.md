@@ -1,4 +1,4 @@
-# 🚀 AKS Cluster Setup with Terraform & Microservices Deployment via Docker & Kubernetes
+# 🚀 Azure AKS Cluster Setup with Terraform & Microservices Deployment via Docker & Kubernetes
 
 This guide walks you through the complete process of provisioning an Azure Kubernetes Service (AKS) cluster using Terraform, configuring access via `kubectl`, and deploying microservices with Kubernetes manifests. Docker images are assumed to be pre-pushed to Docker Hub.
 
@@ -39,8 +39,10 @@ Ensure the following are installed and configured:
 This opens a browser window for authentication.
 ### 2. Set Active Subscription
 If you have multiple subscriptions:
-`az account list --output table`
-`az account set --subscription "<your-subscription-id>"`
+```
+az account list --output table
+az account set --subscription "<your-subscription-id>"
+```
 ### 3. Register Required Resource Providers
 ```
 az provider register --namespace Microsoft.OperationsManagement
@@ -62,21 +64,20 @@ terraform apply --auto-approve
 ```
 ### 📁 Configure kubectl
 
-1. Retrieve kubeconfig
+## 1. Retrieve kubeconfig
 `terraform output -raw kube_config > ~/.kube/aks_poc_config`
 ⚠️ Note: This will overwrite the file if it already exists.
-2. Set KUBECONFIG Environment Variable
-```
-export KUBECONFIG=~/.kube/aks_poc_config
+## 2. Set KUBECONFIG Environment Variable
+`export KUBECONFIG=~/.kube/aks_poc_config`
 Windows (CMD): set KUBECONFIG=%USERPROFILE%\.kube\aks_poc_config
 Windows (PowerShell): $env:KUBECONFIG = "$env:USERPROFILE\.kube\aks_poc_config"
-```
-### 3. Verify Cluster Access
+
+## 3. Verify Cluster Access
 `kubectl get nodes`
 
 ### 🚢 Deploy Microservices with Kubernetes
 
-### 1. Install NGINX Ingress Controller (via Helm)
+## 1. Install NGINX Ingress Controller (via Helm)
 
 `helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
 `helm repo update`
@@ -90,22 +91,23 @@ helm install ingress-nginx ingress-nginx/ingress-nginx \
   --set defaultBackend.nodeSelector."kubernetes\.io/os"=linux \
   --set controller.admissionWebhooks.patch.nodeSelector."kubernetes\.io/os"=linux
 ```
-### Check pod and load balancer status:
+## Check pod and load balancer status:
 ```
 kubectl get pods -n ingress-nginx
 kubectl get service ingress-nginx-controller -n ingress-nginx -o wide
 ```
-### 2. Deploy Your Microservices
+## 2. Deploy Your Microservices
 Clone the manifests repo:
 `git clone https://github.com/rajeshgoyalg/demo-kubernetes-configs`
 `cd demo-kubernetes-configs`
-### Apply resources:
+
+## Apply resources:
 ```
 kubectl apply -f demo-flask-app/deployment.yaml
 kubectl apply -f demo-flask-app/service.yaml
 kubectl apply -f demo-flask-app/aks_ingress.yaml
 ```
-### ✅ Verify and Test
+## ✅ Verify and Test
 
 Check resources:
 ```
