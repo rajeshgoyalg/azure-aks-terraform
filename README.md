@@ -123,14 +123,9 @@ kubectl get service ingress-nginx-controller -n ingress-nginx \
 ```
 Test your service:
 `curl http://<EXTERNAL-IP>/`
-🧰 Troubleshooting
+## 🧰 Troubleshooting
 
-No External IP? Wait a few minutes after creating the ingress controller.
-Cluster not responding? Ensure KUBECONFIG is set correctly.
-Ingress not routing properly? Validate your DNS and service configurations.
-📚 References
+- No External IP? Wait a few minutes after creating the ingress controller.
+- Cluster not responding? Ensure KUBECONFIG is set correctly.
+- Ingress not routing properly? Validate your DNS and service configurations.
 
-Azure Kubernetes Service Documentation
-Terraform Azure Provider
-Kubernetes Official Site
-Helm Charts
