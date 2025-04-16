@@ -7,7 +7,7 @@ variable "resource_group_name" {
 variable "location" {
   description = "Azure region where resources will be deployed"
   type        = string
-  default     = "eastus" # Choose a region suitable for you
+  default     = "eastus"
 }
 
 variable "aks_cluster_name" {
@@ -25,7 +25,7 @@ variable "vnet_address_space" {
 variable "aks_subnet_address_prefix" {
   description = "Address prefix for the AKS subnet"
   type        = list(string)
-  default     = ["10.10.1.0/24"] # Ensure this is within vnet_address_space
+  default     = ["10.10.1.0/24"]
 }
 
 variable "aks_node_count" {
@@ -37,13 +37,13 @@ variable "aks_node_count" {
 variable "aks_vm_size" {
   description = "VM Size for the AKS nodes"
   type        = string
-  default     = "Standard_B2ms" # A general-purpose size
+  default     = "Standard_B2ms"
 }
 
 variable "kubernetes_version" {
   description = "Specific Kubernetes version for AKS"
   type        = string
-  default     = null # Let Azure pick the latest stable non-preview version
+  default     = null
 }
 
 variable "tags" {
