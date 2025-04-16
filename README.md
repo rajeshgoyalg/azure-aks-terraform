@@ -272,12 +272,9 @@ kubectl get deployments
 kubectl get pods
 kubectl get services
 kubectl get ingress
-```
-Retrieve External IP of NGINX Ingress Controller:
-```
-kubectl get service ingress-nginx-controller -n ingress-nginx \
-  --output=jsonpath='{.status.loadBalancer.ingress[0].ip}'
-```
+
+The output will display the ADDRESS field, which contains the External IP of the Ingress Controller.
+
 Test your service:
 `curl http://<EXTERNAL-IP>/`
 ## 🧰 Troubleshooting
